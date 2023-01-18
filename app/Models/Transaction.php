@@ -13,7 +13,8 @@ class Transaction extends Model
     protected $fillable = [
         'user_id',
         'account_id',
-        'from_to_account_id',
+        'account',
+        'from_to_account',
         'transaction',
         'cryptocurrency',
         'amount',

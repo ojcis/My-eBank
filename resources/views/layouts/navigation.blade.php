@@ -18,7 +18,7 @@
                     <x-nav-link :href="route('account.showCreateForm')" :active="request()->routeIs('account.showCreateForm')">
                         {{ __('Create new account') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('showSendForm')" :active="request()->routeIs('showSendForm')">
+                    <x-nav-link :href="route('transferMoney')" :active="request()->routeIs('transferMoney')">
                         {{ __('Transfer money') }}
                     </x-nav-link>
                     <x-nav-link :href="route('transactions')" :active="request()->routeIs('transactions')">

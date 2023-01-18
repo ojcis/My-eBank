@@ -30,6 +30,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        Session::put('route', 'codeConfirm');
+
         return Redirect::route('codeConfirm.show');
     }
 

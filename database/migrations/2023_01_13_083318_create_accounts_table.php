@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('number')->unique();
+            $table->string('number')->unique();//primary
             $table->string('name')->nullable();
             $table->integer('balance')->default(0);
             $table->string('currency')->default('EUR');

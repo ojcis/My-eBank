@@ -3,7 +3,8 @@
 use App\Http\Controllers\CodeCardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccountsController;
-use App\Http\Controllers\TransactionsController;
+use App\Http\Controllers\Transactions\TransactionsController;
+use App\Http\Controllers\Transactions\TransferMoneyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,10 +30,12 @@ Route::middleware(['auth', 'auth2'])->group(function () {
     Route::put('/accounts/{account}/edit', [AccountsController::class, 'update'])->name('account.update');
     Route::get('/accounts/{account}', [AccountsController::class, 'show'])->name('account');
 
-    Route::get('/transactions/send', [TransactionsController::class, 'showSendForm'])->name('showSendForm');
-    Route::post('/transactions/send', [TransactionsController::class, 'send'])->name('send');
     Route::get('/transactions', [TransactionsController::class, 'index'])->name('transactions');
+    Route::get('/transactions/{account}', [TransactionsController::class, 'show'])->name('transactions.account');
 
+    Route::get('/transferMoney', [TransferMoneyController::class, 'index'])->name('transferMoney');
+    Route::post('/transferMoney', [TransferMoneyController::class, 'confirmation'])->name('transferMoney.confirm');
+    Route::post('/transferMoney/confirm', [TransferMoneyController::class, 'transfer'])->name('transferMoney.transfer');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

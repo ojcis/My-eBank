@@ -23,9 +23,9 @@ class Currency
         return $this->rate;
     }
 
-    public function currencyExchange(int $balance, Currency $newCurrency): int
+    public function exchange(int $money, Currency $newCurrency): int
     {
-        $eur=$balance/$this->rate;
+        $eur=$money/$this->rate;
         return floor($eur*$newCurrency->getRate());
     }
 }

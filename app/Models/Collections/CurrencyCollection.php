@@ -27,7 +27,14 @@ class CurrencyCollection
         return $this->currencies;
     }
 
-    public function getCurrency(string $currencyId): Currency
+    public function currencyExchange(int $money, string $from, string $to): int
+    {
+        $currency=$this->getCurrency($from);
+        $newCurrency=$this->getCurrency($to);
+        return $currency->exchange($money, $newCurrency);
+    }
+
+    private function getCurrency(string $currencyId): Currency
     {
         foreach ($this->currencies as $currency){
             if ($currency->getId()==$currencyId){

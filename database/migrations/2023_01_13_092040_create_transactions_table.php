@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('account_id')->unsigned();
-            $table->string('from_to_account_id')->nullable();
+            $table->string('account');
+            $table->string('from_to_account')->nullable();
             $table->string('transaction')->nullable();
             $table->string('cryptocurrency')->nullable();
             $table->integer('amount')->nullable();

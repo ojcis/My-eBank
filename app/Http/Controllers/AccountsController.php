@@ -22,7 +22,7 @@ class AccountsController extends Controller
 
     public function show(Account $account):View
     {
-        $this->isUserAccount($account->user_id);
+        $this->isAuthUserAccount($account->user_id);
         return view('account.index',[
             'account' => $account
         ]);
@@ -64,22 +64,12 @@ class AccountsController extends Controller
 
     public function update(Account $account, Request $request): RedirectResponse
     {
-        $this->isUserAccount($account->user_id);
-        $currencies=New CurrencyCollection();
-        $currency=$currencies->getCurrency($account->currency);
-        $newCurrency=$currencies->getCurrency($request->currency);
-        $newBalance=$currency->currencyExchange($account->balance, $newCurrency);
+        $this->isAuthUserAccount($account->user_id);
+        $newBalance=(new CurrencyCollection())->currencyExchange($account->balance, $account->currency, $request->currency);
         $account->name = $request->name;
-        $account->currency = $newCurrency->getId();
+        $account->currency = $request->currency;
         $account->balance = $newBalance;
         $account->save();
         return back();
-    }
-
-    private function isUserAccount(int $accountUserId): void
-    {
-        if ($accountUserId !== Auth::id()){
-            abort(403);
-        }
     }
 }

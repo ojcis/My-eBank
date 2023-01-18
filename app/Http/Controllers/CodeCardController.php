@@ -17,8 +17,9 @@ class CodeCardController extends Controller
     public function show(): View
     {
         Session::put('codeNr', rand(1,env('CODE_COUNT')));
-        return view('codeCard.authorize', [
-            'codeNr' => Session::get('codeNr')
+        return view('codeCard.confirm', [
+            'codeNr' => Session::get('codeNr'),
+            'route' => Session::get('route')
         ]);
     }
 
@@ -36,4 +37,6 @@ class CodeCardController extends Controller
         Session::put('auth2', true);
         return redirect()->intended(RouteServiceProvider::HOME);
     }
+
+
 }
