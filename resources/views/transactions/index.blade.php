@@ -11,7 +11,7 @@
                     <table class="table-fixed w-full">
                         <thead>
                         <tr class="bg-gray-100">
-                            <th class="px-4 py-2">Nr</th>
+                            <th class="px-4 py-2">Nr.</th>
                             <th class="px-4 py-2">Your account</th>
                             <th class="px-4 py-2">From/To account</th>
                             <th class="px-4 py-2">Money amount</th>
