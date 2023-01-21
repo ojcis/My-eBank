@@ -44,7 +44,7 @@ Route::middleware(['auth', 'auth2'])->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/codeConfirm', [CodeCardController::class, 'show'])->name('codeConfirm.show');
-    Route::post('/codeConfirm', [CodeCardController::class, 'authenticate'])->name('codeConfirm');
+    Route::post('/codeConfirm', [CodeCardController::class, 'authenticate'])->name('authConfirm');
 });
 
 require __DIR__.'/auth.php';

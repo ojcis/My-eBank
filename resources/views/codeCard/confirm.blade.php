@@ -16,6 +16,7 @@
         </div>
     </form>
         <div class="flex items-center justify-end mt-4">
+            @if($route == 'authConfirm')
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <a href="route('logout')"
@@ -25,6 +26,7 @@
                     {{ __('Cancel authorization') }}
                 </a>
             </form>
-            <x-primary-button form="code" class="ml-3">Submit</x-primary-button>
+            @endif
+            <x-primary-button form="code" class="ml-3">{{$route == 'authConfirm' ? 'Submit' : 'Transfer'}}</x-primary-button>
         </div>
 </x-guest-layout>

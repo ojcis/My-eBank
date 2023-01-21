@@ -3,7 +3,7 @@
 ## In this website you can
 * Create My-eBank profile, with two-factor authentication (password and code card).
 * Create many bank accounts and edit them (change name, currency and delete them).
-* Transfer money between yours and other accounts.
+* Transfer money between yours and other accounts safe using code card.
 * See transaction history, manage it.
 * See and search cryptocurrency. (in progress)
 * Buy, sell cryptocurrency and open, close short position. (in progress)
