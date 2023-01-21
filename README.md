@@ -20,5 +20,5 @@
 * Create data base 'myebank'.
 * Enter your database credentials in the <code>.env</code> file.
 * Run <code>php artisan migrate</code> command.
-* You need to run the website by running <comand>php artisan serve</comand> command.
+* You need to run the website by running <code>php artisan serve</code> command.
 
