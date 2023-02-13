@@ -25,6 +25,16 @@ class Account extends Model
 
     function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'user_id', 'id');
+        return $this->hasMany(Transaction::class, 'account_id', 'id');
+    }
+
+    function cryptoCoins(): HasMany
+    {
+        return $this->hasMany(CryptoCoin::class, 'account_id', 'id');
+    }
+
+    function cryptoTransactions(): HasMany
+    {
+        return $this->hasMany(CryptoTransaction::class, 'account_id', 'id');
     }
 }

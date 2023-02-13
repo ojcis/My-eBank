@@ -34,9 +34,8 @@ class CodeCardController extends Controller
         if (! Hash::check($request->code, $code)){
             return Redirect::route('codeConfirm.show')->with('message', 'Wrong code!');
         }
+        Session::forget(['route', 'operation']);
         Session::put('auth2', true);
         return redirect()->intended(RouteServiceProvider::HOME);
     }
-
-
 }

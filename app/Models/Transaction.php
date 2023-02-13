@@ -15,9 +15,7 @@ class Transaction extends Model
         'account_id',
         'account',
         'from_to_account',
-        'transaction',
-        'cryptocurrency',
-        'amount',
+        'description',
         'money',
         'currency',
     ];

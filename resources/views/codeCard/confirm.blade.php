@@ -5,7 +5,7 @@
         </h3>
     @endif
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Enter {{$codeNr<10 ? "0$codeNr" : "$codeNr"}}. code from your code card
+        Enter {{$codeNr<10 ? "0$codeNr" : "$codeNr"}}. code from your code card to {{session()->get('operation')}}!
     </h2>
     <form method="POST" action="{{ route($route) }}" id="code">
         @csrf
@@ -26,7 +26,12 @@
                     {{ __('Cancel authorization') }}
                 </a>
             </form>
+            @else
+                <a href="/accounts"
+                   class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Cancel
+                </a>
             @endif
-            <x-primary-button form="code" class="ml-3">{{$route == 'authConfirm' ? 'Submit' : 'Transfer'}}</x-primary-button>
+            <x-primary-button form="code" class="ml-3">{{session()->get('operation')}}</x-primary-button>
         </div>
 </x-guest-layout>

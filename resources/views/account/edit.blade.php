@@ -1,14 +1,17 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit account') }}{{$account->name ? ": $account->name" : ''}}
+        <h2 class="font-semibold text-xl text-green-700 leading-tight">
+            {{session()->get('success')}}
         </h2>
     </x-slot>
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight pb-4">
+                        {{ __('Edit account') }}
+                    </h2>
+                    <h2 class="font-semibold text-gray-800 leading-tight mb-6">
                         {{ $account->number }} ({{ number_format($account->balance / 100, 2) }} {{ $account->currency }})
                     </h2>
                     <form action="/accounts/{{$account->id}}/edit" method="post">

@@ -8,13 +8,14 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('cryptocurrencies', function (Blueprint $table) {
+        Schema::create('crypto_coins', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('account_id')->unsigned();
+            $table->string('logo')->nullable();
             $table->string('symbol');
-            $table->double('amount');
+            $table->string('name');
             $table->integer('price')->unsigned();
+            $table->integer('amount');
             $table->string('currency');
             $table->timestamps();
         });
@@ -22,6 +23,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('cryptocurrencies');
+        Schema::dropIfExists('crypto_coins');
     }
 };

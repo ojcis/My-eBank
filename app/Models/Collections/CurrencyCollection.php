@@ -2,10 +2,8 @@
 
 namespace App\Models\Collections;
 
-use App\Models\Account;
 use App\Models\Currency;
 use Illuminate\Support\Facades\Http;
-use Illuminate\View\View;
 
 class CurrencyCollection
 {

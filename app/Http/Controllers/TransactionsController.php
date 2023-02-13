@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Transactions;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;

@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Transactions;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\CodeCard;
 use App\Models\Collections\CurrencyCollection;
-use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class TransferMoneyController extends Controller
 {
@@ -38,7 +36,9 @@ class TransferMoneyController extends Controller
             'senderAccount' => $senderAccount,
             'receiverAccount' => Account::where('number',$request->receiverAccount)->first(),
             'money' => $request->money*100,
-            'route' => 'transferMoney.transfer'
+            'description' => $request->description,
+            'route' => 'transferMoney.transfer',
+            'operation' => 'transfer money'
         ]);
         return Redirect::route('codeConfirm.show');
     }
@@ -56,7 +56,8 @@ class TransferMoneyController extends Controller
         $senderAccount=Session::get('senderAccount');
         $receiverAccount=Session::get('receiverAccount');
         $senderMoney=Session::get('money');
-        Session::forget(['senderAccount', 'receiverAccount', 'money', 'codeNr', 'route']);
+        $description=Session::get('description');
+        Session::forget(['senderAccount', 'receiverAccount', 'money', 'codeNr', 'description', 'route', 'operation']);
 
         $receiverMoney=$senderMoney;
         if ($senderAccount->currecy != $receiverAccount->currency){
@@ -67,21 +68,9 @@ class TransferMoneyController extends Controller
         $receiverAccount->balance+=$receiverMoney;
         $receiverAccount->save();
 
-        $this->createTransaction($senderAccount, $receiverAccount, $senderMoney*(-1));
-        $this->createTransaction($receiverAccount, $senderAccount, $receiverMoney);
+        $this->createTransaction($senderAccount, $receiverAccount->number, $senderMoney*(-1), $description);
+        $this->createTransaction($receiverAccount, $senderAccount->number, $receiverMoney, $description);
 
-        return Redirect::route('accounts')->with('message', 'Transaction was successful!');
-    }
-
-    private function createTransaction(Account $main, Account $secondary, int $money): void
-    {
-        Transaction::create([
-            'user_id' => $main->user_id,
-            'account_id' => $main->id,
-            'account' => $main->number,
-            'from_to_account' => $secondary->number,
-            'money' => $money,
-            'currency' => $main->currency,
-        ]);
+        return Redirect::route('accounts')->with('success', 'Transaction was successful!');
     }
 }

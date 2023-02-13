@@ -12,17 +12,23 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('accounts')" :active="request()->routeIs('accounts') || request()->routeIs('account') || request()->routeIs('account.edit')">
+                    <x-nav-link :href="route('accounts')" :active="request()->routeIs('accounts') || request()->routeIs('account') || request()->routeIs('account.edit') || request()->routeIs('account.showCreateForm') || request()->routeIs('cryptocurrencies.sellForm')">
                         {{ __('Accounts') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('account.showCreateForm')" :active="request()->routeIs('account.showCreateForm')">
-                        {{ __('Create new account') }}
                     </x-nav-link>
                     <x-nav-link :href="route('transferMoney')" :active="request()->routeIs('transferMoney')">
                         {{ __('Transfer money') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('transactions')" :active="request()->routeIs('transactions')">
+                    <x-nav-link :href="route('transactions')" :active="request()->routeIs('transactions') || request()->routeIs('transactions.account')">
                         {{ __('Transactions') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('cryptocurrencies')" :active="request()->routeIs('cryptocurrencies') || request()->routeIs('cryptocurrency')">
+                        {{ __('Cryptocurrencies') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('cryptoTransactions')" :active="request()->routeIs('cryptoTransactions') || request()->routeIs('cryptoTransactions.account')">
+                        {{ __('Cryptocurrency transactions') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        {{ __('User information') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -43,10 +49,6 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

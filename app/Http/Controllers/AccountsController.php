@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Collections\CurrencyCollection;
+use App\Models\CryptoTransaction;
+use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Session;
 
 class AccountsController extends Controller
 {
@@ -24,7 +27,8 @@ class AccountsController extends Controller
     {
         $this->isAuthUserAccount($account->user_id);
         return view('account.index',[
-            'account' => $account
+            'account' => $account,
+            'cryptocurrencies' => $account->cryptoCoins()->get()->all()
         ]);
     }
 
@@ -50,7 +54,7 @@ class AccountsController extends Controller
             'number' => "MeB-{$account->created_at->format('Ymd')}-{$account->id}-{$account->number}"
         ]);
         $account->save();
-        return Redirect::route('accounts');
+        return Redirect::route('accounts')->with('success', 'New account created successfully!');
     }
 
     public function edit(Account $account): View
@@ -70,6 +74,33 @@ class AccountsController extends Controller
         $account->currency = $request->currency;
         $account->balance = $newBalance;
         $account->save();
-        return back();
+        return back()->with('success', 'Account updated!');
+    }
+
+    public function delete(Account $account): RedirectResponse
+    {
+        if ($account->cryptoCoins()->get()->first()){
+            return Redirect::back()->with('message', 'Sell your cryptocurrency before deleting account!');
+        }
+        if ($account->balance>0){
+            return Redirect::back()->with('message', 'Transfer all yor money before deleting account!');
+        }
+        $this->isAuthUserAccount($account->user_id);
+        Session::put([
+            'account' => $account,
+            'route' => 'account.destroy',
+            'operation' => 'delete account'
+        ]);
+        return Redirect::route('codeConfirm.show');
+    }
+
+    public function destroy(): RedirectResponse
+    {
+        $account=Session::get('account');
+        Transaction::where('account_id', $account->id)->delete();
+        CryptoTransaction::where('account_id', $account->id)->delete();
+        Session::forget(['purchase', 'account', 'codeNr', 'route', 'operation']);
+        $account->delete();
+        return Redirect::route('accounts')->with('success', 'Account deleted successfully!');
     }
 }
