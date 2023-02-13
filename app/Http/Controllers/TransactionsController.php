@@ -19,7 +19,7 @@ class TransactionsController extends Controller
 
     public function show(Account $account): View
     {
-        $transactions=Transaction::where('account_id', $account->id)->latest()->get();
+        $transactions=Transaction::where('account_id', $account->id)->latest()->paginate(15);
         return view('transactions.account', [
             'transactions' => $transactions,
             'account' => $account

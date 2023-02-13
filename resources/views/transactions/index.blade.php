@@ -24,9 +24,13 @@
                         <tbody>
                         @foreach($transactions as $i => $transaction)
                             <tr class="{{ $i % 2 == 0 ? '' : 'bg-gray-100'}} text-center">
-                                <td class="px-4 py-2">
+                                <td class="px-4 py-2 text-left">
                                     <a href="/transactions/{{$transaction->account_id}}">
-                                    {{$transaction->account}}
+                                        @if($transaction->account()->get()->first()->name)
+                                            {{$transaction->account()->get()->first()->name}} <span class="text-xs">({{$transaction->account}})</span>
+                                        @else
+                                            {{$transaction->account}}
+                                        @endif
                                     </a>
                                 </td>
                                 <td class="px-4 py-2">{{$transaction->from_to_account}}</td>

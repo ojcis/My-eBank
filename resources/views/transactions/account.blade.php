@@ -31,6 +31,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="pt-4 flex justify-end">
+                        {{ $transactions->links() }}
+                    </div>
                 </div>
             </div>
         </div>
