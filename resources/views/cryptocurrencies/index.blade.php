@@ -1,8 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-green-700 leading-tight">
-            {{session()->get('success')}}
-        </h2>
+        <div class="flex">
+            <h2 class="mt-2 w-full font-semibold text-xl text-gray-800 leading-tight pb-4">
+                @if($search)
+                    Search results for "{{strtoupper($search)}}" ({{count($cryptocurrencies)}} results)
+                @endif
+            </h2>
+            <form>
+                <div class="inline-flex">
+                    <input type="text" id="search" name="search" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                    <input type="submit" value="Search" class="ml-1 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                </div>
+            </form>
+        </div>
     </x-slot>
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

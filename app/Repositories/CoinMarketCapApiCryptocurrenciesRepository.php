@@ -7,19 +7,25 @@ use Illuminate\Support\Facades\Http;
 
 class CoinMarketCapApiCryptocurrenciesRepository implements CryptocurrencyRepository
 {
-    public function getCryptocurrencies(?string $currency='EUR'): array
+    public function getCryptocurrencies(?string $search=null, ?string $currency='EUR'): array
     {
         $request = Http::withHeaders([
             'Accepts' => 'application/json',
             'X-CMC_PRO_API_KEY' => env('COINMARKETCAP_API_KEY'),
         ])->get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', [
             'start' => '1',
-            'limit' => 100,
+            'limit' => 200,
             'convert' => $currency,
         ]);
         $cryptocurrencies = [];
         foreach ($request->object()->data as $cryptocurrency) {
-            $cryptocurrencies[] = $this->createCryptocurrency($cryptocurrency);
+            if ($search){
+                if (str_contains(strtolower($cryptocurrency->symbol),strtolower($search)) || str_contains(strtolower($cryptocurrency->name),strtolower($search))){
+                    $cryptocurrencies[] = $this->createCryptocurrency($cryptocurrency);
+                }
+            }else {
+                $cryptocurrencies[] = $this->createCryptocurrency($cryptocurrency);
+            }
         }
         return $cryptocurrencies;
     }

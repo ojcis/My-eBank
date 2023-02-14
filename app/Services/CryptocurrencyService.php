@@ -15,9 +15,9 @@ class CryptocurrencyService
         $this->cryptocurrencyRepository = $cryptocurrencyRepository;
     }
 
-    public function all(?string $currency='EUR'): array
+    public function all(?string $search=null, ?string $currency='EUR'): array
     {
-        return $this->cryptocurrencyRepository->getCryptocurrencies($currency);
+        return $this->cryptocurrencyRepository->getCryptocurrencies($search, $currency);
     }
 
     public function single(string $symbol, ?string $currency='EUR'): Cryptocurrency

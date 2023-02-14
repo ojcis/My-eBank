@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\CodeCard;
 use App\Models\CryptoCoin;
-use App\Models\Cryptocurrency;
 use App\Models\CryptoTransaction;
 use App\Services\CryptocurrencyService;
 use Illuminate\Http\RedirectResponse;
@@ -27,16 +26,17 @@ class CryptocurrenciesController extends Controller
         $this->cryptocurrencyService = $cryptocurrencyService;
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $cryptocurrencies=$this->cryptocurrencyService->all();
+        $cryptocurrencies=$this->cryptocurrencyService->all($request->search);
         $cryptocurrencyCollection=Collection::make($cryptocurrencies);
         $perPage = 20;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentPageCryptocurrencies = $cryptocurrencyCollection->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $paginatedCryptocurrencies = new LengthAwarePaginator($currentPageCryptocurrencies , count($cryptocurrencyCollection), $perPage);
         return view('cryptocurrencies.index', [
-            'cryptocurrencies' => $paginatedCryptocurrencies->setPath(LengthAwarePaginator::resolveCurrentPath())
+            'cryptocurrencies' => $paginatedCryptocurrencies->setPath(LengthAwarePaginator::resolveCurrentPath()),
+            'search' => $request->search
         ]);
     }
 
