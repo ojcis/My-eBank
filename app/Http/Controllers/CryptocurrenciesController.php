@@ -137,7 +137,7 @@ class CryptocurrenciesController extends Controller
             'cryptoCoin' => $cryptoCoin,
             'amount' => $request->amount,
             'route' => 'cryptocurrencies.update',
-            'operation' => "Sell $cryptoCoin->symbol"
+            'operation' => "Sell cryptocurrency"
         ]);
         return Redirect::route('codeConfirm.show');
     }

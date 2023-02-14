@@ -74,7 +74,7 @@ class AccountsController extends Controller
         $account->currency = $request->currency;
         $account->balance = $newBalance;
         $account->save();
-        return back()->with('success', 'Account updated!');
+        return Redirect("/accounts/$account->id")->with('success', 'Account updated!');
     }
 
     public function delete(Account $account): RedirectResponse
