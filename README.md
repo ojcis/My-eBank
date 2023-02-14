@@ -11,11 +11,13 @@
 ## An overview of the application
 ### Registation and login
 ![register-login](https://user-images.githubusercontent.com/112757458/218491546-1c446a04-e987-478c-aad0-6efad8af3ff7.gif)
+### Manage accounts
+![manage-accounts](https://user-images.githubusercontent.com/112757458/218719463-9d8b01c9-97a2-418b-a485-5ccb4af8b72d.gif)
 ## Technologies used:
-* PHP 8.1.13 (Laravel Framework 9.47.0)
+* PHP 8.1.13
 * MySQL 8.0.31
 * Composer 2.4
-* Laravel 9.45
+* Laravel Framework 9.47.0
 * TailwindCSS
 ## Instructions to run the website:
 * Clone this repository
