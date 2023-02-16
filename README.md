@@ -13,8 +13,10 @@
 ![register-login](https://user-images.githubusercontent.com/112757458/218491546-1c446a04-e987-478c-aad0-6efad8af3ff7.gif)
 ### Manage accounts
 ![manage-accounts](https://user-images.githubusercontent.com/112757458/218719463-9d8b01c9-97a2-418b-a485-5ccb4af8b72d.gif)
-### Manage cryptocurrencies
-![manage-cryptocurrency](https://user-images.githubusercontent.com/112757458/218750521-f912b4e0-9be8-4141-ab65-eff1c242bb22.gif)
+### Money transactions
+![money-transactions](https://user-images.githubusercontent.com/112757458/219495933-76dc86b5-2a26-48b7-916c-e461da8aa95e.gif)
+### Cryptocurrency transactions
+![cryptocurrency-transactions](https://user-images.githubusercontent.com/112757458/219495963-5eaf2e39-9e15-4d56-9571-cb89dc97a7cd.gif)
 ## Technologies used:
 * PHP 8.1.13
 * MySQL 8.0.31
