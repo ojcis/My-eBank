@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('symbol');
             $table->string('name');
             $table->integer('price');
-            $table->integer('amount');
+            $table->float('amount');
+            $table->integer('money');
             $table->string('currency');
             $table->timestamps();
         });

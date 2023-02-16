@@ -59,7 +59,7 @@ class CryptocurrenciesController extends Controller
             'symbol' => $cryptoCurrency->getSymbol(),
             'name' => $cryptoCurrency->getName(),
             'price' => round($cryptoCurrency->getPrice()*100),
-            'amount' => ($request->amount)*1000,
+            'amount' => ($request->amount),
             'currency' => $cryptoCurrency->getCurrency()
         ]);
         $request->validate([
@@ -71,7 +71,7 @@ class CryptocurrenciesController extends Controller
             $purchase->price=$newPrice;
             $purchase->currency=$account->currency;
         }
-        if ($account->balance<ceil($purchase->price*($purchase->amount/1000))){
+        if ($account->balance<ceil($purchase->price*$purchase->amount)){
             return Redirect::back()->with('message', 'Not enough money!');
         }
         $purchase->account()->associate($account->id);
@@ -97,14 +97,14 @@ class CryptocurrenciesController extends Controller
         $purchase=Session::get('purchase');
         $account=Session::get('account');
         Session::forget(['purchase', 'account', 'codeNr', 'route', 'operation']);
-        $account->balance-=$purchase->price*($purchase->amount/1000);
+        $account->balance-=$purchase->price*($purchase->amount);
         $account->save();
         $purchase->save();
         $this->createTransaction(
             $account,
             null,
-            $purchase->price*($purchase->amount/-1000),
-            'Buy '. $purchase->name
+            $purchase->price*($purchase->amount*(-1)),
+            "Buy ($purchase->amount) $purchase->name"
         );
         $cryptoTransaction=new CryptoTransaction();
         $cryptoTransaction->fill([
@@ -114,7 +114,7 @@ class CryptocurrenciesController extends Controller
             'name' => $purchase->name,
             'price' => $purchase->price,
             'amount' => $purchase->amount,
-            'money' => $purchase->price*$purchase->amount/(-1000),
+            'money' => $purchase->price*$purchase->amount*(-1),
             'currency' => $purchase->currency,
         ]);
         $cryptoTransaction->account()->associate($account->id);
@@ -163,7 +163,7 @@ class CryptocurrenciesController extends Controller
             $account,
             null,
             $amount*$priceNow,
-            'Sell '. $cryptoCoin->name
+            "Sell ($amount) $cryptoCoin->name"
         );
         $cryptoTransaction=new CryptoTransaction();
         $cryptoTransaction->fill([
@@ -179,7 +179,7 @@ class CryptocurrenciesController extends Controller
         $cryptoTransaction->account()->associate($account->id);
         $cryptoTransaction->user()->associate($account->user_id);
         $cryptoTransaction->save();
-        $cryptoCoin->amount-=$amount*1000;
+        $cryptoCoin->amount-=$amount;
         if($cryptoCoin->amount>0){
             $cryptoCoin->save();
         }else{

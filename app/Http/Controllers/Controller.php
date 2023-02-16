@@ -21,13 +21,21 @@ class Controller extends BaseController
         }
     }
 
-    protected function createTransaction(Account $main, ?string $secondaryAccount, int $money, ?string $description=null): void
+    protected function createTransaction(Account $main, ?Account $secondaryAccount, int $money, ?string $description=null): void
     {
+        if ($secondaryAccount) {
+            $number=$secondaryAccount->number;
+            $name=$secondaryAccount->user->name;
+        }else{
+            $number=null;
+            $name=null;
+        }
         Transaction::create([
             'user_id' => $main->user_id,
             'account_id' => $main->id,
             'account' => $main->number,
-            'from_to_account' => $secondaryAccount,
+            'from_to_account' => $number,
+            'user_name' => $name,
             'description' => $description,
             'money' => $money,
             'currency' => $main->currency,

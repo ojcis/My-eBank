@@ -27,13 +27,13 @@
                             <tr>
                                 <td class="px-4 py-2"><img src="{{$cryptoCoin->logo}}" alt="no image" width="60px" class="inline-flex"> <span class="font-semibold">{{$cryptoCoin->symbol}}</span> / {{$cryptoCoin->name}}</td>
                                 <td class="px-4 py-2 text-center">{{number_format($cryptoCoin->price/100, 2)}} {{$cryptoCoin->currency}}</td>
-                                <td class="px-4 py-2 text-center">{{($cryptoCoin->amount/1000)}}</td>
-                                <td class="px-4 py-2 text-center">{{number_format((($cryptoCoin->amount/1000)*$cryptoCoin->price)/100, 2)}} {{$cryptoCoin->currency}}</td>
+                                <td class="px-4 py-2 text-center">{{$cryptoCoin->amount}}</td>
+                                <td class="px-4 py-2 text-center">{{number_format($cryptoCoin->amount*$cryptoCoin->price/100, 2)}} {{$cryptoCoin->currency}}</td>
                                 <td class="px-4 py-2 text-center">{{number_format($priceNow/100, 2)}} {{$cryptoCoin->currency}}</td>
-                                <td class="px-4 py-2 text-center">{{number_format((($cryptoCoin->amount/1000)*$priceNow)/100, 2)}} {{$cryptoCoin->currency}}</td>
-                                <td class="px-4 py-2 text-center {{((($cryptoCoin->amount/1000)*$priceNow)-(($cryptoCoin->amount/1000)*$cryptoCoin->price))>0 ? "text-green-600" : "text-red-600"}}">
-                                    {{((($cryptoCoin->amount/1000)*$priceNow)-(($cryptoCoin->amount/1000)*$cryptoCoin->price))>0 ? '+' : ''}}
-                                    {{number_format(((($cryptoCoin->amount/1000)*$priceNow)-(($cryptoCoin->amount/1000)*$cryptoCoin->price))/100, 2)}} {{$cryptoCoin->currency}}
+                                <td class="px-4 py-2 text-center">{{number_format($cryptoCoin->amount*$priceNow/100, 2)}} {{$cryptoCoin->currency}}</td>
+                                <td class="px-4 py-2 text-center {{(($cryptoCoin->amount*$priceNow)-($cryptoCoin->amount*$cryptoCoin->price))>0 ? "text-green-600" : "text-red-600"}}">
+                                    {{(($cryptoCoin->amount*$priceNow)-($cryptoCoin->amount*$cryptoCoin->price))>0 ? '+' : ''}}
+                                    {{number_format(((($cryptoCoin->amount)*$priceNow)-(($cryptoCoin->amount)*$cryptoCoin->price))/100, 2)}} {{$cryptoCoin->currency}}
                                 </td>
                             </tr>
                         </tbody>
@@ -54,7 +54,7 @@
                         <div class="inline-flex w-full">
                             <div class="pt-4 w-full">
                                 <label for="amount" class="block font-medium text-sm text-gray-700">Amount</label>
-                                <input type="number" id="amount" name="amount" min="0.001" step="0.001" max="{{$cryptoCoin->amount/1000}}" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                                <input type="number" id="amount" name="amount" min="0.001" step="0.001" max="{{$cryptoCoin->amount}}" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
                                 <x-input-error :messages="$errors->get('amount')" class="mt-2" />
                             </div>
                         </div>

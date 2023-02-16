@@ -68,8 +68,8 @@ class TransferMoneyController extends Controller
         $receiverAccount->balance+=$receiverMoney;
         $receiverAccount->save();
 
-        $this->createTransaction($senderAccount, $receiverAccount->number, $senderMoney*(-1), $description);
-        $this->createTransaction($receiverAccount, $senderAccount->number, $receiverMoney, $description);
+        $this->createTransaction($senderAccount, $receiverAccount, $senderMoney*(-1), $description);
+        $this->createTransaction($receiverAccount, $senderAccount, $receiverMoney, $description);
 
         return Redirect::route('accounts')->with('success', 'Transaction was successful!');
     }

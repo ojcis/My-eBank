@@ -68,10 +68,10 @@
                         @foreach($cryptocurrencies as $i => $cryptocurrency)
                             <tr class="{{ $i % 2 == 0 ? '' : 'bg-gray-100'}}">
                                 <td class="px-4 py-2"><img src="{{$cryptocurrency->logo}}" alt="no image" width="40px" class="inline-flex"> <span class="font-semibold">{{$cryptocurrency->symbol}}</span> / {{$cryptocurrency->name}}</td>
-                                <td class="px-4 py-2 text-center">{{($cryptocurrency->price/100)}} {{$cryptocurrency->currency}}</td>
-                                <td class="px-4 py-2 text-center">{{($cryptocurrency->amount/1000)}}</td>
-                                <td class="px-4 py-2 text-center">{{number_format((($cryptocurrency->amount/1000)*$cryptocurrency->price)/100, 2)}} {{$cryptocurrency->currency}}</td>
-                                <td class="px-4 py-2 text-center">{{($cryptocurrency->created_at->format('H:i d/m/Y'))}}</td>
+                                <td class="px-4 py-2 text-center">{{$cryptocurrency->price/100}} {{$cryptocurrency->currency}}</td>
+                                <td class="px-4 py-2 text-center">{{$cryptocurrency->amount}}</td>
+                                <td class="px-4 py-2 text-center">{{number_format(($cryptocurrency->amount*$cryptocurrency->price)/100, 2)}} {{$cryptocurrency->currency}}</td>
+                                <td class="px-4 py-2 text-center">{{$cryptocurrency->created_at->format('H:i d/m/Y')}}</td>
                                 <td class="px-4 py-2 text-center"><a href="/cryptocurrencies/{{$cryptocurrency->id}}/sell" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">sell</a></td>
                             </tr>
                         @endforeach

@@ -8,14 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('crypto_transactions', function($table){
-            $table->integer('money')->after('amount');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->string('user_name')->nullable()->after('from_to_account');
         });
     }
+
     public function down(): void
     {
-        Schema::table('crypto_transactions', function($table) {
-            $table->dropColumn('crypto_transactions');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->dropColumn('user_name');
         });
     }
 };
