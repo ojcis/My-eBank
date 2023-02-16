@@ -15,8 +15,8 @@
                         <thead>
                         <tr class="bg-gray-100">
                             <th class="px-4 py-2">Cryptocurrency</th>
-                            <th class="px-4 py-2">Price</th>
                             <th class="px-4 py-2">Amount</th>
+                            <th class="px-4 py-2">Price</th>
                             <th class="px-4 py-2">Total price</th>
                             <th class="px-4 py-2">Price now</th>
                             <th class="px-4 py-2">Total price now</th>
@@ -26,8 +26,8 @@
                         <tbody>
                             <tr>
                                 <td class="px-4 py-2"><img src="{{$cryptoCoin->logo}}" alt="no image" width="60px" class="inline-flex"> <span class="font-semibold">{{$cryptoCoin->symbol}}</span> / {{$cryptoCoin->name}}</td>
-                                <td class="px-4 py-2 text-center">{{number_format($cryptoCoin->price/100, 2)}} {{$cryptoCoin->currency}}</td>
                                 <td class="px-4 py-2 text-center">{{$cryptoCoin->amount}}</td>
+                                <td class="px-4 py-2 text-center">{{number_format($cryptoCoin->price/100, 2)}} {{$cryptoCoin->currency}}</td>
                                 <td class="px-4 py-2 text-center">{{number_format($cryptoCoin->amount*$cryptoCoin->price/100, 2)}} {{$cryptoCoin->currency}}</td>
                                 <td class="px-4 py-2 text-center">{{number_format($priceNow/100, 2)}} {{$cryptoCoin->currency}}</td>
                                 <td class="px-4 py-2 text-center">{{number_format($cryptoCoin->amount*$priceNow/100, 2)}} {{$cryptoCoin->currency}}</td>
