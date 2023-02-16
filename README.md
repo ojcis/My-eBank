@@ -1,5 +1,4 @@
 # My-eBank
-## In progress
 ## In this website you can
 * Create My-eBank profile, with two-factor authentication (password and code card).
 * Manage, create edit many bank accounts.
