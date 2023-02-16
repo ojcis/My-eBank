@@ -7,7 +7,7 @@
 * See transaction history, manage it.
 * See and search cryptocurrency.
 * Buy, sell cryptocurrency.
-* See cryptocurrency history.
+* See cryptocurrency history, manage it.
 ## An overview of the application
 ### Registation and login
 ![register-login](https://user-images.githubusercontent.com/112757458/218491546-1c446a04-e987-478c-aad0-6efad8af3ff7.gif)
